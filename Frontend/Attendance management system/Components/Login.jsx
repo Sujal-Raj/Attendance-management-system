@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 
 function Login() {
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div className="flex justify-center items-center h-[90vh]">
   <div className="bg-white p-6 rounded-lg shadow-lg w-80">
@@ -11,12 +14,12 @@ function Login() {
 
     {/* ID Field */}
     <div className="mb-4">
-      <label htmlFor="id" className="block text-gray-700 font-medium mb-2">
-        ID
+      <label htmlFor="email-id" className="block text-gray-700 font-medium mb-2">
+        Email-ID
       </label>
       <input
         type="text"
-        id="id"
+        id="email-id"
         placeholder="Enter your ID"
         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         required
