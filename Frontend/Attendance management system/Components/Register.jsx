@@ -1,37 +1,52 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 function Register() {
   const [username, setUsername] = useState("");
   const [emailId, setEmailId] = useState("");
-  const [password, setPasssword] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const formHandler = (e) => {
+  // const formHandler = (e) => {
+  //   e.preventDefault();
+  //   console.log(username, emailId, password);
+  //   navigate("/");
+  // };
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(username, emailId, password);
-    navigate("/");
+    try {
+      await axios.post('http://localhost:5000/api/auth/register', { username, emailId, password });
+      alert("Registration successful! Redirecting to login...");
+      navigate('/login');
+    } catch (err) {
+      // console.error('Registration failed:', err.response.data.message);
+      alert("Registration failed. Please try again.");
+    }
   };
+
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="flex justify-center items-center h-[90vh]">
         <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-          <form action="" onSubmit={formHandler}>
+          <form action="" onSubmit={handleRegister}>
             <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
 
             {/* username Field */}
             <div className="mb-4">
               <label
-                htmlFor="id"
+                htmlFor="username"
                 className="block text-gray-700 font-medium mb-2"
               >
                 Username
               </label>
               <input
                 type="text"
-                id="id"
+                id="username"
                 placeholder="Enter your username"
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
@@ -43,14 +58,14 @@ function Register() {
             {/* ID Field */}
             <div className="mb-4">
               <label
-                htmlFor="id"
+                htmlFor="email-id"
                 className="block text-gray-700 font-medium mb-2"
               >
                 Email-ID
               </label>
               <input
                 type="text"
-                id="id"
+                id="email-id"
                 placeholder="Enter your email"
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
@@ -74,7 +89,7 @@ function Register() {
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
                 value={password}
-                onChange={(e) => setPasssword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 

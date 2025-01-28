@@ -1,15 +1,38 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-
+import { NavLink, useNavigate } from 'react-router-dom'
+import axios from "axios";
 
 function Login() {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Send login request to the backend
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
+        emailId,
+        password,
+      });
+
+      // Handle successful login
+      const { token } = response.data; // Assuming the backend returns a JWT token
+      localStorage.setItem("authToken", token); // Store token in localStorage
+      alert("Login successful!");
+      navigate("/admindashboard"); // Redirect to the dashboard
+    } catch (err) {
+      // Handle login error
+      console.error("Login failed:", err.response?.data?.message || err.message);
+      alert("Invalid credentials. Please try again.");
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-[90vh]">
   <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-    <form action="">
+    <form action="" onSubmit={handleLogin}>
     <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
 
     {/* ID Field */}
@@ -23,6 +46,8 @@ function Login() {
         placeholder="Enter your ID"
         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         required
+        value={emailId}
+        onChange={(e) => setEmailId(e.target.value)}
       />
     </div>
 
@@ -37,6 +62,8 @@ function Login() {
         placeholder="Enter your password"
         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         required
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
     </div>
 

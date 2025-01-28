@@ -7,7 +7,7 @@ function Homepage() {
   return (
     <>
         <Navbar/>
-        <Login/>
+        {/* <Login/> */}
         
     </>
   )
