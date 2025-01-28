@@ -1,17 +1,19 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
+// Define schema
 const employeeSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  position: { type: String, required: true },
-  attendance: [
-    {
-      date: { type: Date, default: Date.now },
-      status: { type: String, enum: ['Present', 'Absent'], default: 'Absent' },
-    },
-  ],
+    username: { type: String, required: true },
+    emailId: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    // role: { type: String, enum: ['employee', 'admin'], default: 'employee' },
 });
 
-const Employee = mongoose.model('Employee', employeeSchema);
+// Hash password before saving to the database
+employeeSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+    this.password = await bcrypt.hash(this.password, 10); // Encrypt password
+    next();
+});
 
-module.exports = Employee;
+module.exports = mongoose.model('Employee', employeeSchema);
