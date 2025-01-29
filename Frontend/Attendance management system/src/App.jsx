@@ -4,6 +4,9 @@ import Homepage from '../Components/Homepage';
 import Login from '../Components/Login';
 import Register from '../Components/Register';
 import AdminDashboard from '../Pages/AdminDashboard'
+import EmployeeAddForm from '../Pages/EmployeeAddForm';
+import EmployeeDashboard from '../Pages/EmployeeDashboard';
+import LeaveApplicationForm from '../Pages/LeaveApplicationForm';
 
 function App() {
   return (
@@ -12,6 +15,9 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/admindashboard" element={<AdminDashboard/>}/>
+      <Route path="/employeedashboard" element={<EmployeeDashboard/>}/>
+      <Route path="/employeeaddform" element={<EmployeeAddForm/>}/>
+      <Route path="/leaveformapplication" element={<LeaveApplicationForm/>}/>
     </Routes>
   )
 }
