@@ -5,6 +5,7 @@ import axios from "axios";
 function Login() {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -15,13 +16,20 @@ function Login() {
       const response = await axios.post("http://localhost:5000/api/auth/login", {
         emailId,
         password,
+        role,
       });
 
       // Handle successful login
-      const { token } = response.data; // Assuming the backend returns a JWT token
+      const { token,role } = response.data; // Assuming the backend returns a JWT token
       localStorage.setItem("authToken", token); // Store token in localStorage
       alert("Login successful!");
-      navigate("/admindashboard"); // Redirect to the dashboard
+
+      if (role === "Admin") {
+        navigate("/admindashboard");
+      } else if (role === "Employee") {
+        navigate("/employeedashboard");
+      }
+      // navigate("/admindashboard"); // Redirect to the dashboard
     } catch (err) {
       // Handle login error
       console.error("Login failed:", err.response?.data?.message || err.message);
@@ -66,6 +74,21 @@ function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
     </div>
+
+    <div className="mb-4">
+            <label htmlFor="role" className="block text-gray-700 font-medium mb-2">
+              Select Role
+            </label>
+            <select
+              id="role"
+              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="user">Admin</option>
+              <option value="employee">Employee</option>
+            </select>
+          </div>
 
     {/* Submit Button */}
     <button

@@ -1,4 +1,5 @@
 const Employee = require('../models/Employee');
+const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -23,10 +24,23 @@ exports.register = async (req, res) => {
 // Login
 exports.login = async (req, res) => {
     try {
-        const { emailId, password } = req.body;
+        const { emailId, password,role } = req.body;
+        console.log("role",role);
 
         // Find user by email
-        const user = await Employee.findOne({ emailId });
+        // const user = await Employee.findOne({ emailId });
+
+        let user;
+
+        if (role === "Admin") {
+            user = await Employee.findOne({ emailId });
+          } else if (role === "employee") {
+            user = await User.findOne({ emailId });
+          } else {
+            return res.status(400).json({ message: "Invalid role selected" });
+          }
+
+
         if (!user) return res.status(404).json({ error: 'User not found' });
 
         // Compare passwords
@@ -35,7 +49,7 @@ exports.login = async (req, res) => {
 
         // Generate JWT
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-        res.json({ token });
+        res.json({ token,role });
     } catch (err) {
         res.status(500).json({ error: 'Error logging in' });
     }
