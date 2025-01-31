@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { emailId, password,role } = req.body;
-        console.log(emailId, password,role);
+        // console.log(emailId, password,role);
 
         // Find user by email
         // const user = await Employee.findOne({ emailId });
@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
           } else {
             return res.status(400).json({ message: "Invalid role selected" });
           }
-          console.log(user);
+        //   console.log(user);
 
         if (!user) return res.status(404).json({ error: 'User not found' });
 

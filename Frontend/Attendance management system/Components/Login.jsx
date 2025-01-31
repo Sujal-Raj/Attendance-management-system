@@ -21,9 +21,17 @@ function Login() {
       });
  
       // Handle successful login
-      const { token, role:serverRole } = response.data; // Assuming the backend returns a JWT token
+      const { token, role:serverRole,emailId:email  } = response.data; // Assuming the backend returns a JWT token
+      // console.log(serverRole,emailId);
       localStorage.setItem("authToken", token); // Store token in localStorage
       alert("Login successful!");
+
+      const userData = {
+        emailId,
+        role: serverRole,
+      };
+
+      localStorage.setItem("user", JSON.stringify(userData)); // Store user data in localStorage
 
       if (role === "Admin") {
         navigate("/admindashboard");

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
+import { FcLeave } from "react-icons/fc";
+import { FiAlignJustify } from "react-icons/fi";
 
 
 function AdminDashboard() {
@@ -78,8 +80,18 @@ function AdminDashboard() {
             </NavLink>
         </button>
       </nav>
-      <section>
-      <div className="p-4">
+      <section className='flex'>
+      <aside className='bg-gray-200 p-4 min-h-[90vh] w-[15%]'>
+        <button className='w-full text-left hover:bg-gray-400 transition-all flex items-center gap-2'>
+          <FiAlignJustify />
+          <NavLink to="/admindashboard" className="!text-black text-2xl text-semibold tracking-tighter ">Attendance</NavLink>
+        </button>
+        <button className='w-full text-left mt-2 flex items-center gap-2 hover:bg-gray-400 transition-all'>
+          <FcLeave />
+          <NavLink to="/leavedashboardadmin" className="!text-black text-2xl text-semibold tracking-tighter">Leaves</NavLink>
+        </button>
+      </aside>
+      <div className="p-4  w-[85%] min-h-[90vh]">
       <h2 className="text-2xl font-bold mb-4">Employee Data</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 shadow-lg">
@@ -145,7 +157,7 @@ function AdminDashboard() {
           </tbody>
         </table>
       </div>
-    </div>
+      </div>
       </section>
     </>
   )

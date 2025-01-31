@@ -6,6 +6,11 @@ const leaveSchema = new mongoose.Schema({
         type: String,
         required: true,  // Store username instead of userId
     },
+    emailId: {
+        type: String,
+        required: true,
+        lowercase: true,
+    },
     leaveType: {
         type: String,
         required: true,
@@ -23,11 +28,11 @@ const leaveSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // status: {
-    //     type: String,
-    //     default: 'Pending',
-    //     enum: ['Pending', 'Approved', 'Rejected'], // Enum for status
-    // },
+    status: {
+        type: String,
+        default: 'Pending',
+        enum: ['Pending', 'Approved', 'Rejected'], // Enum for status
+    },
 }, {
     timestamps: true, // Automatically adds createdAt and updatedAt fields
 });

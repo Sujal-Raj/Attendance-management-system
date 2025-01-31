@@ -5,6 +5,7 @@ import axios from "axios";
 function LeaveApplicationForm() {
 
   const [username, setUsername] = useState("");
+  const [emailId, setEmailId] = useState("");
   const [leaveType, setleaveType] = useState("");
   const [leaveStartDate, setLeaveStartDate] = useState("");
   const [leaveEndDate, setleaveEndDate] = useState("");
@@ -14,7 +15,7 @@ function LeaveApplicationForm() {
     e.preventDefault();
 
     try{
-      await axios.post('http://localhost:5000/api/leave/leaveformapplication', { username, leaveType, leaveStartDate, leaveEndDate, reason });
+      await axios.post('http://localhost:5000/api/leave/leaveformapplication', { username, leaveType, leaveStartDate, leaveEndDate, reason,emailId });
       alert("Leave Application successful!");
     }
     catch(err){
@@ -48,10 +49,13 @@ function LeaveApplicationForm() {
       type="text" placeholder="Enter your name" className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
     </div>
 
-    {/* <div className="mb-4">
-      <label className="block text-gray-700 font-medium mb-2">Employee ID</label>
-      <input type="text" placeholder="Enter employee ID" className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-    </div> */}
+    <div className="mb-4">
+      <label className="block text-gray-700 font-medium mb-2">Email ID</label>
+      <input
+      value={emailId}
+      onChange={(e)=>setEmailId(e.target.value)}
+      type="email" placeholder="Enter email ID" className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+    </div>
 
     <div className="mb-4">
       <label className="block text-gray-700 font-medium mb-2">Leave Type</label>

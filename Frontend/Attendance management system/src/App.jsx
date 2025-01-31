@@ -7,6 +7,8 @@ import AdminDashboard from '../Pages/AdminDashboard'
 import EmployeeAddForm from '../Pages/EmployeeAddForm';
 import EmployeeDashboard from '../Pages/EmployeeDashboard';
 import LeaveApplicationForm from '../Pages/LeaveApplicationForm';
+import Leavedashboardadmin from '../Pages/Leavedashboardadmin';
+import Leavedashboardemployee from '../Pages/Leavedashboardemployee';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Route path="/employeedashboard" element={<EmployeeDashboard/>}/>
       <Route path="/employeeaddform" element={<EmployeeAddForm/>}/>
       <Route path="/leaveformapplication" element={<LeaveApplicationForm/>}/>
+      <Route path="/leavedashboardadmin" element={<Leavedashboardadmin/>}/>
+      <Route path="/leavedashboardemployee" element={<Leavedashboardemployee/>}/>
     </Routes>
   )
 }
