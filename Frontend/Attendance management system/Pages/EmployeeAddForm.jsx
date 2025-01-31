@@ -21,6 +21,7 @@ function EmployeeAddForm() {
       await axios.post('http://localhost:5000/api/user/employeeaddform', { fullName, emailId, phoneNumber, department, joiningDate, password });
       alert("Employee added successfully!");
     } catch (err) {
+      console.log(err)
       alert("Employee addition failed. Please try again.");
     }
   }
