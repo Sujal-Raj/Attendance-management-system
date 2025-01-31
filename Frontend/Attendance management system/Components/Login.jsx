@@ -5,11 +5,12 @@ import axios from "axios";
 function Login() {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("Admin");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    // console.log(emailId, password, role);
 
     try {
       // Send login request to the backend
@@ -18,9 +19,9 @@ function Login() {
         password,
         role,
       });
-
+ 
       // Handle successful login
-      const { token,role } = response.data; // Assuming the backend returns a JWT token
+      const { token, role:serverRole } = response.data; // Assuming the backend returns a JWT token
       localStorage.setItem("authToken", token); // Store token in localStorage
       alert("Login successful!");
 
@@ -85,8 +86,8 @@ function Login() {
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
-              <option value="user">Admin</option>
-              <option value="employee">Employee</option>
+              <option value="Admin">Admin</option>
+              <option value="Employee">Employee</option>
             </select>
           </div>
 

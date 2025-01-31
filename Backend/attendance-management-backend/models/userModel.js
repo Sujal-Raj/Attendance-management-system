@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 // Define schema
 const userSchema = new mongoose.Schema({
@@ -33,6 +34,19 @@ const userSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true, // automatically adds createdAt and updatedAt fields
+});
+
+
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next(); // Only hash if password is new/modified
+
+    try {
+        const salt = await bcrypt.genSalt(10); // Generate salt
+        this.password = await bcrypt.hash(this.password, salt); // Hash password
+        next();
+    } catch (err) {
+        next(err);
+    }
 });
 
 // Create model

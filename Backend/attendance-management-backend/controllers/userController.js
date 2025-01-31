@@ -33,7 +33,7 @@ const User = require('../models/userModel');
 
 exports.addUser = async (req, res) => {
     try {
-        console.log('Request body:', req.body);
+        // console.log('Request body:', req.body);
         const { fullName, emailId, phoneNumber, department, joiningDate, password } = req.body;
 
         // Check if email already exists
@@ -50,7 +50,7 @@ exports.addUser = async (req, res) => {
             password
         });
 
-        console.log('Attempting to save user:', user);
+        // console.log('Attempting to save user:', user);
 
         // Save user to the database
         await user.save();

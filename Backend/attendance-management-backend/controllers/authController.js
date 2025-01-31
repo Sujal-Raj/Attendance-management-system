@@ -25,30 +25,33 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { emailId, password,role } = req.body;
-        console.log("role",role);
+        console.log(emailId, password,role);
 
         // Find user by email
         // const user = await Employee.findOne({ emailId });
+        // console.log(user);
 
         let user;
 
         if (role === "Admin") {
             user = await Employee.findOne({ emailId });
-          } else if (role === "employee") {
+          } else if (role === "Employee") {
             user = await User.findOne({ emailId });
           } else {
             return res.status(400).json({ message: "Invalid role selected" });
           }
-
+          console.log(user);
 
         if (!user) return res.status(404).json({ error: 'User not found' });
 
         // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
+        // const isMatch = password === user.password;  // Temporarily remove bcrypt.compare()
+
         if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
 
         // Generate JWT
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ id: user._id, role:user._role }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.json({ token,role });
     } catch (err) {
         res.status(500).json({ error: 'Error logging in' });
