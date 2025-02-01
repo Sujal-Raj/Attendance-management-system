@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 
 function EmployeeDashboard() {
+
+  useEffect(()=>{
+    
+  })
   return (
     <>
       <nav className='h-[10vh] font-bold flex items-center justify-between px-10'>

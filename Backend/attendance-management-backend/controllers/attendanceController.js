@@ -115,3 +115,15 @@ function calculateTotalTime(clockIn, clockOut) {
 
   return `${hours}.${minutes.toString().padStart(2, '0')} hours`;
 }
+
+
+exports.getAttendanceByDate = async (req, res) => {
+  try {
+    const { date } = req.params;
+    const attendance = await Attendance.find({ date });
+    res.json(attendance);
+  } catch (error) {
+    console.error('Error fetching attendance:', error);
+    res.status(500).json({ message: error.message });
+  }
+};

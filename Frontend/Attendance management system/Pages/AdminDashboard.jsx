@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FcLeave } from "react-icons/fc";
 import { FiAlignJustify } from "react-icons/fi";
 import { FaCalendarAlt } from "react-icons/fa";
 
+
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [attendance, setAttendance] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -19,9 +21,33 @@ function AdminDashboard() {
         console.error("Error fetching users:", error);
       }
     };
+    const fetchAttendance = async () => {
+      // console.log("running")
+      try {
+        const response = await axios.get(`http://localhost:5000/api/attendance/daily/${selectedDate}`);
+        const attendanceData = {};
+        
+        // Convert array of attendance records to object format
+        response.data.forEach(record => {
+          attendanceData[record.userId] = {
+            status: record.status,
+            clockIn: record.clockIn,
+            clockOut: record.clockOut
+          };
+        });
+        
+        setAttendance(attendanceData);
+      } catch (error) {
+        console.error("Error fetching attendance:", error);
+      }
+    };
 
     fetchUsers();
-  }, []);
+    fetchAttendance();
+  }, [selectedDate]);
+
+
+  
 
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
@@ -106,15 +132,29 @@ function AdminDashboard() {
     }
   };
 
+  const handleLogout = ()=>{
+    console.log("run")
+    localStorage.removeItem('token');
+    // localStorage.removeItem('user');
+    navigate('/');
+  }
+
   return (
     <>
-      <nav className='h-[10vh] font-bold flex items-center justify-between px-10 bg-blue-600 text-white'>
+      <nav className='h-[10vh] font-bold flex items-center justify-between px-10  text-black'>
         <p className='text-4xl'>Admin Dashboard</p>
-        <button className='bg-blue-800 px-4 py-2 rounded-md hover:bg-blue-900 transition-all'>
+        <div>
+        <button className='bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600 transition-all'>
           <NavLink className='font-bold !text-white focus:outline-none' to="/employeeaddform">
             Add an Employee
           </NavLink>
         </button>
+        <button onClick={handleLogout} className='bg-red-500 px-4 py-2 rounded-md ml-2 hover:bg-red-600 transition-all'>
+          <NavLink className='font-bold !text-white focus:outline-none' >
+            Log Out
+          </NavLink>
+        </button>
+        </div>
       </nav>
       <section className='flex'>
         <aside className='bg-gray-200 p-4 min-h-[90vh] w-[15%]'>

@@ -14,4 +14,6 @@ router.post('/clockout', attendanceController.recordClockOut);
 // Download attendance report
 router.get('/report', attendanceController.downloadReport);
 
+router.get('/daily/:date', attendanceController.getAttendanceByDate);
+
 module.exports = router;
