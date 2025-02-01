@@ -14,7 +14,7 @@ function Leavedashboardemployee() {
       try {
         // Get user info from localStorage (adjust according to how you store user data)
         const user = JSON.parse(localStorage.getItem('user'));
-        // console.log(user)
+        console.log(user)
         
         if (!user) {
           setError('User not found. Please login again.');

@@ -62,7 +62,7 @@ exports.updateLeaveRequestStatus = async (req, res) => {
 exports.getEmployeeLeaveRequests = async (req, res) => {
     try {
         const { emailId } = req.params;
-        console.log(emailId);
+        // console.log(emailId);
         
         // Find all leaves for the specific email
         const leaves = await Leave.find({ emailId });

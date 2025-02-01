@@ -9,6 +9,6 @@ router.get('/leavedashboardadmin',getAllLeaveRequests);
 
 router.put('/updatestatus/:id', updateLeaveRequestStatus);
 
-router.get('/employeeleave/:username', getEmployeeLeaveRequests);
+router.get('/employeeleave/:emailId', getEmployeeLeaveRequests);
 
 module.exports = router;
