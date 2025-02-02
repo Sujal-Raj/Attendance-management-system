@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { FaCalendarAlt } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
 
 
 function EmployeeDashboard() {
@@ -14,6 +15,7 @@ function EmployeeDashboard() {
     totalAbsent: 0,
     averageWorkHours: 0
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserLeaves = async () => {
@@ -62,20 +64,30 @@ function EmployeeDashboard() {
     setSelectedMonth(e.target.value);
   };
 
+  const handleLogout = ()=>{
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    navigate('/');
+  }
+
   return (
     <>
       <nav className='h-[10vh] font-bold flex items-center justify-between px-10'>
         <p className='text-4xl'>Your Dashboard</p>
-        <div>
+        <div className='flex items-center gap-4'>
           <button className=' bg-blue-500 px-4 py-2 rounded-md'>
               <NavLink className='font-bold !text-white focus:outline-none' to="/leaveformapplication">
                   Apply for Leave
               </NavLink>
           </button>
-          <button className=' bg-emerald-500 px-4 py-2 rounded-md ml-2'>
+          <button className=' bg-emerald-500 px-4 py-2 rounded-md'>
               <NavLink className='font-bold !text-white focus:outline-none' to="/leavedashboardemployee">
                   Your Leaves
               </NavLink>
+          </button>
+          <button onClick={handleLogout} className='w-[35px] h-[35px] rounded-full flex items-center justify-center hover:cursor-pointer'>
+              <IoIosLogOut className='text-xl font-extrabold'/> 
+              {/* LogOut */}
           </button>
         </div>
       </nav>

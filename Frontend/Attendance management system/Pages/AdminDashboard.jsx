@@ -138,9 +138,8 @@ function AdminDashboard() {
   };
 
   const handleLogout = ()=>{
-    // console.log("run")
-    localStorage.removeItem('token');
-    // localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
     navigate('/');
   }
 
