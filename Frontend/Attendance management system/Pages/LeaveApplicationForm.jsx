@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
 
 function LeaveApplicationForm() {
 
@@ -16,12 +17,23 @@ function LeaveApplicationForm() {
 
     try{
       await axios.post('http://localhost:5000/api/leave/leaveformapplication', { username, leaveType, leaveStartDate, leaveEndDate, reason,emailId });
-      alert("Leave Application successful!");
+      // alert("Leave Application successful!");
+      toast.success("Leave Application successful!");
+      <ToastContainer />
     }
     catch(err){
       console.error("Leave Application failed:", err.response?.data?.message || err.message);
-      alert("Leave Application failed. Please try again.");
+      // alert("Leave Application failed. Please try again.");
+      toast.error("Leave Application failed. Please try again.");
+      <ToastContainer />
     }
+
+    setUsername("");
+    setEmailId("");
+    setleaveType("");
+    setLeaveStartDate("");
+    setleaveEndDate("");
+    setReason("");
   }
 
 

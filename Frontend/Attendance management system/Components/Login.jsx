@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
   const [emailId, setEmailId] = useState("");
@@ -27,7 +28,9 @@ function Login() {
       console.log(serverRole,emailId);
       localStorage.setItem("authToken", token); // Store token in localStorage
       localStorage.setItem("user", JSON.stringify({_id,emailId:serverEmailId,role:serverRole})); // Store user data in localStorage
-      alert("Login successful!");
+      // alert("Login successful!");
+      toast.success("Login successful!");
+      <ToastContainer />
 
       // const userData = {
       //   emailId:response.data.emailId,

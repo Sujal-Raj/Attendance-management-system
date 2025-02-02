@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import { NavLink } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function EmployeeAddForm() {
@@ -19,11 +19,22 @@ function EmployeeAddForm() {
     // console.log(fullName, emailId, phoneNumber, department, joiningDate,password);
     try {
       await axios.post('http://localhost:5000/api/user/employeeaddform', { fullName, emailId, phoneNumber, department, joiningDate, password });
-      alert("Employee added successfully!");
+      // alert("Employee added successfully!");
+      toast.success("Employee added successfully!");
+      <ToastContainer />
     } catch (err) {
       console.log(err)
-      alert("Employee addition failed. Please try again.");
+      // alert("Employee addition failed. Please try again.");
+      toast.error("Employee addition failed. Please try again.");
+      <ToastContainer />
     }
+
+    setFullName("");
+    setemailId("");
+    setPhoneNumber("");
+    setDepartment("");
+    setJoiningDate("");
+    setPassword("");
   }
   return (
     <>

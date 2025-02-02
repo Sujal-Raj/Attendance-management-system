@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function Register() {
@@ -20,7 +21,9 @@ function Register() {
     e.preventDefault();
     try {
       await axios.post('http://localhost:5000/api/auth/register', { username, emailId, password });
-      alert("Registration successful! Redirecting to login...");
+      // alert("Registration successful! Redirecting to login...");
+      toast.success("Registration successful! Redirecting to login...");
+      <ToastContainer />
       navigate('/login');
     } catch (err) {
       // console.error('Registration failed:', err.response.data.message);
