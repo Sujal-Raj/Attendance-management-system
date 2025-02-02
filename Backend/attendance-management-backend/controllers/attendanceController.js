@@ -127,3 +127,32 @@ exports.getAttendanceByDate = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getEmployeeAttendance = async (req, res) => {
+  try {
+    const { userId, month } = req.params;
+
+    // const user = await User.findOne({ emailId });
+    // if (!user) {
+    //   return res.status(404).json({ message: 'User not found' });
+    // }
+    
+    // Create date range for the selected month
+    const startDate = `${month}-01`;
+    const lastDay = new Date(month.split('-')[0], month.split('-')[1], 0).getDate();
+    const endDate = `${month}-${lastDay}`;
+
+    const attendance = await Attendance.find({
+      userId,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    }).sort({ date: 1 });
+
+    res.json(attendance);
+  } catch (error) {
+    console.error('Error fetching employee attendance:', error);
+    res.status(500).json({ message: error.message });
+  }
+};

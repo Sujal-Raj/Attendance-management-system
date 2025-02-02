@@ -10,7 +10,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // console.log(emailId, password, role);
+    console.log(emailId, password, role);
 
     try {
       // Send login request to the backend
@@ -19,19 +19,22 @@ function Login() {
         password,
         role,
       });
+
+      console.log('Full response data:', response.data.responseData);
  
       // Handle successful login
-      const { token, role:serverRole,emailId:email  } = response.data; // Assuming the backend returns a JWT token
-      // console.log(serverRole,emailId);
+      const { token, role:serverRole,_id,emailId:serverEmailId } = response.data.responseData; // Assuming the backend returns a JWT token
+      console.log(serverRole,emailId);
       localStorage.setItem("authToken", token); // Store token in localStorage
+      localStorage.setItem("user", JSON.stringify({_id,emailId:serverEmailId,role:serverRole})); // Store user data in localStorage
       alert("Login successful!");
 
-      const userData = {
-        emailId,
-        role: serverRole,
-      };
+      // const userData = {
+      //   emailId:response.data.emailId,
+      //   // role: serverRole,
+      //   _id
+      // };
 
-      localStorage.setItem("user", JSON.stringify(userData)); // Store user data in localStorage
 
       if (role === "Admin") {
         navigate("/admindashboard");

@@ -16,4 +16,6 @@ router.get('/report', attendanceController.downloadReport);
 
 router.get('/daily/:date', attendanceController.getAttendanceByDate);
 
+router.get('/employee/:userId/:month', attendanceController.getEmployeeAttendance);
+
 module.exports = router;

@@ -16,6 +16,7 @@ function AdminDashboard() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/user/users");
+        // console.log(response.data)
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -33,10 +34,12 @@ function AdminDashboard() {
             status: record.status,
             clockIn: record.clockIn,
             clockOut: record.clockOut
+            // emailId: record.emailId,
           };
         });
         
         setAttendance(attendanceData);
+        // console.log(attendance)
       } catch (error) {
         console.error("Error fetching attendance:", error);
       }
@@ -62,10 +65,12 @@ function AdminDashboard() {
         status: newStatus,
       },
     }));
+    // const user = users.find(u => u._id === userId);
 
     try {
       await axios.post("http://localhost:5000/api/attendance/record", {
         userId,
+        // emailId:user.emailId,
         status: newStatus,
         date: selectedDate,
       });
@@ -133,7 +138,7 @@ function AdminDashboard() {
   };
 
   const handleLogout = ()=>{
-    console.log("run")
+    // console.log("run")
     localStorage.removeItem('token');
     // localStorage.removeItem('user');
     navigate('/');
@@ -189,6 +194,7 @@ function AdminDashboard() {
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">ID</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email ID</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Clock-In</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Clock-Out</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Total Time</th>
@@ -200,6 +206,7 @@ function AdminDashboard() {
                   <tr key={user._id} className="hover:bg-gray-50 transition-all">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{index + 1}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.fullName}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.emailId}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <button
                         className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-all"
