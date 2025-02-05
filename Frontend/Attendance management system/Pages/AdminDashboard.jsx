@@ -183,9 +183,9 @@ function AdminDashboard() {
                 onChange={handleDateChange}
               />
             </div>
-            <button onClick={downloadReport} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-all">
+            {/* <button onClick={downloadReport} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-all">
               Download Attendance Report
-            </button>
+            </button> */}
           </div>
           <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
             <table className="min-w-full">

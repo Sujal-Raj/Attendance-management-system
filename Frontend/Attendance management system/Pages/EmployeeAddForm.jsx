@@ -21,12 +21,12 @@ function EmployeeAddForm() {
       await axios.post('http://localhost:5000/api/user/employeeaddform', { fullName, emailId, phoneNumber, department, joiningDate, password });
       // alert("Employee added successfully!");
       toast.success("Employee added successfully!");
-      <ToastContainer />
+      // <ToastContainer />
     } catch (err) {
       console.log(err)
       // alert("Employee addition failed. Please try again.");
       toast.error("Employee addition failed. Please try again.");
-      <ToastContainer />
+      // <ToastContainer />
     }
 
     setFullName("");
@@ -109,6 +109,7 @@ function EmployeeAddForm() {
     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
       Add Employee
     </button>
+    <ToastContainer />
   </form>
 </div>
         </div>

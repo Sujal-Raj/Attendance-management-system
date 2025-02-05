@@ -23,8 +23,11 @@ function Register() {
       await axios.post('http://localhost:5000/api/auth/register', { username, emailId, password });
       // alert("Registration successful! Redirecting to login...");
       toast.success("Registration successful! Redirecting to login...");
-      <ToastContainer />
-      navigate('/login');
+      // <ToastContainer />
+      // navigate('/login');
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
     } catch (err) {
       // console.error('Registration failed:', err.response.data.message);
       alert("Registration failed. Please try again.");
@@ -103,6 +106,7 @@ function Register() {
             >
               Register
             </button>
+            <ToastContainer />
           </form>
         </div>
       </div>

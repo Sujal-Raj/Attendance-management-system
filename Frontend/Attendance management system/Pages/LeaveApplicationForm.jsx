@@ -19,13 +19,13 @@ function LeaveApplicationForm() {
       await axios.post('http://localhost:5000/api/leave/leaveformapplication', { username, leaveType, leaveStartDate, leaveEndDate, reason,emailId });
       // alert("Leave Application successful!");
       toast.success("Leave Application successful!");
-      <ToastContainer />
+      // <ToastContainer />
     }
     catch(err){
       console.error("Leave Application failed:", err.response?.data?.message || err.message);
       // alert("Leave Application failed. Please try again.");
       toast.error("Leave Application failed. Please try again.");
-      <ToastContainer />
+      // <ToastContainer />
     }
 
     setUsername("");
@@ -114,6 +114,7 @@ function LeaveApplicationForm() {
     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
       Submit Leave Request
     </button>
+    <ToastContainer />
   </form>
 </div>
 

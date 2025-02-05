@@ -11,7 +11,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(emailId, password, role);
+    // console.log(emailId, password, role);
 
     try {
       // Send login request to the backend
@@ -21,16 +21,16 @@ function Login() {
         role,
       });
 
-      console.log('Full response data:', response.data.responseData);
+      // console.log('Full response data:', response.data.responseData);
  
       // Handle successful login
       const { token, role:serverRole,_id,emailId:serverEmailId } = response.data.responseData; // Assuming the backend returns a JWT token
-      console.log(serverRole,emailId);
+      // console.log(serverRole,emailId);
       localStorage.setItem("authToken", token); // Store token in localStorage
       localStorage.setItem("user", JSON.stringify({_id,emailId:serverEmailId,role:serverRole})); // Store user data in localStorage
       // alert("Login successful!");
       toast.success("Login successful!");
-      <ToastContainer />
+      // <ToastContainer />
 
       // const userData = {
       //   emailId:response.data.emailId,
@@ -39,11 +39,19 @@ function Login() {
       // };
 
 
-      if (role === "Admin") {
-        navigate("/admindashboard");
-      } else if (role === "Employee") {
-        navigate("/employeedashboard");
-      }
+      // if (role === "Admin") {
+      //   navigate("/admindashboard");
+      // } else if (role === "Employee") {
+      //   navigate("/employeedashboard");
+      // }
+
+      setTimeout(() => {
+        if (role === "Admin") {
+          navigate("/admindashboard");
+        } else if (role === "Employee") {
+          navigate("/employeedashboard");
+        }
+      }, 500);
       // navigate("/admindashboard"); // Redirect to the dashboard
     } catch (err) {
       // Handle login error
@@ -52,8 +60,17 @@ function Login() {
     }
   };
 
+  //Testing react-toastify
+// const test = () => {
+//   console.log("run")
+//       toast.success("Login successful!");
+      
+// }
   return (
+    
     <div className="flex justify-center items-center h-[90vh]">
+      {/* <button onClick={test}>Ok</button> */}
+      
   <div className="bg-white p-6 rounded-lg shadow-lg w-80">
     <form action="" onSubmit={handleLogin}>
     <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
@@ -112,6 +129,7 @@ function Login() {
     >
       Login
     </button>
+    <ToastContainer />
 
     </form>
 
